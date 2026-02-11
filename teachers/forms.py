@@ -6,23 +6,25 @@ from .models import teacher
 class signupteacherForm(UserCreationForm):
     first_name=forms.CharField(max_length=25)
     last_name=forms.CharField(max_length=55)
-    number_id=forms.CharField(max_length=10 , required=True )
+    number_id=forms.CharField(max_length=10 , required=True  , label='کد ملی')
     class Meta:
         model=User
         fields=['username','first_name' , 'last_name' , 'number_id' , 'password1' , 'password2' ]
 
-    def save(self):
+    def save(self , commit=True):
         user = super().save(commit=False)
-
         user.first_name=self.cleaned_data['first_name']
         user.last_name=self.cleaned_data['last_name']
 
-        user.save()
+        if commit:
+            user.save()
 
-        teacher.objects.create(
-            user=user,
-            first_name=self.first_name,
-            last_name=self.last_name,
-            number_id=self.number_id,
+            teacher.objects.create(
+                user=user,
+                first_name=self.cleaned_data['first_name'],
+                last_name=self.cleaned_data['last_name'],
+                number_id=self.cleaned_data['number_id'],
 
-        )
+            )
+            print(teacher.objects.all().values())
+        return user
