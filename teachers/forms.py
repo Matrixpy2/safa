@@ -28,3 +28,26 @@ class signupteacherForm(UserCreationForm):
             )
             print(teacher.objects.all().values())
         return user
+
+class loginteacherForm(forms.Form):
+    user_name=forms.CharField(
+        max_length=255,
+        widget=forms.TextInput(attrs=
+            {
+                'class':'form-control',
+                'placeholder':'enter username'
+            }
+        )
+        ,
+        label='نام کاربری'
+    )
+    password=forms.CharField(
+        max_length=255,
+        widget=forms.PasswordInput(attrs=
+            {
+                'class':'form-control',
+                'placeholder':'enter password'
+            }
+        ),
+        label='رمز عبور'
+    )

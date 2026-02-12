@@ -1,11 +1,7 @@
-<!-- teachers/templates/simple_signup.html -->
 <h1>ثبت‌نام معلم جدید</h1>
 
 <form method="POST">
     {% csrf_token %}
-    {% if not form.is_valid %}
-        <h1>موارد ذکر شده را با دقت وارد کنید</h1>
-    {% endif %}
     <p>
         <label>نام:</label>
         {{ form.first_name }}
@@ -38,3 +34,6 @@
 
     <button type="submit">ثبت‌نام</button>
 </form>
+
+
+

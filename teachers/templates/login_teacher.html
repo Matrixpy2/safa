@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<h1>ورود معلمان</h1>
 
-</body>
-</html>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+
+    <button type="submit">ورود</button>
+
+
+
+    <a href="http://127.0.0.1:8000/teacher/signup/">ایجاد حساب کاربری جدید</a>
+</form>
