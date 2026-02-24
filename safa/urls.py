@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('teacher/' , include('teachers.urls')),
     path('student/' , include('students.urls')),
+    path('api/' , include('chat_app.urls')),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
