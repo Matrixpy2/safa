@@ -77,11 +77,11 @@ class LoginSerializer(serializers.Serializer):
         user_name = data['username']
         password  = data['password']
         user = User.objects.get(username=user_name)
-        if not user.object.filter(username=user_name).exists():
+        if not User.objects.filter(username=user_name).exists():
             raise serializers.ValidationError('user not found')
-        if not teacher.objects.filter(user=user).exists():
-            raise serializers.ValidationError('user not student')
-        if not user.check_password(password , user.password):
+        if not Students.objects.filter(user=user).exists():
+            raise serializers.ValidationError('user is not student')
+        if not user.check_password(password):
             raise serializers.ValidationError('password is wrong')
         return data
     

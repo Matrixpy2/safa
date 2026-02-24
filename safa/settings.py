@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,10 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'channels',
     'rest_framework',
     'teachers',
     'students',
     'schools',
+    'chat_app',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +75,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'safa.wsgi.application'
+
+### my project is async so i need to use asgi instead of wsgi
+
+# WSGI_APPLICATION = 'safa.wsgi.application'
+ASGI_APPLICATION = 'safa.asgi.application'
 
 
 # Database
@@ -137,7 +144,7 @@ REST_FRAMEWORK = {
 }
 from datetime import timedelta
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=100),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
