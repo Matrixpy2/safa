@@ -11,22 +11,33 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'safa_project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'safa.settings')
 
 # application = get_asgi_application()
 
-# change application to routing.py
-from channels.routing import ProtocolTypeRouter , URLRouter
-from channels.auth import AuthMiddlewareStack
-from chat_app.routing import websocket_urlpatterns as chat_websocket_urlpatterns
+# # change application to routing.py
+# from channels.routing import ProtocolTypeRouter , URLRouter
+# from channels.auth import AuthMiddlewareStack
+# from chat_app.routing import websocket_urlpatterns as chat_websocket_urlpatterns
 
-application = ProtocolTypeRouter(
-    {
-        'http' : get_asgi_application(),
-        'websocket' : AuthMiddlewareStack(
-            URLRouter(
-                chat_websocket_urlpatterns
-            )
-        )
-    }
-)
+# application = ProtocolTypeRouter(
+#     {
+#         'http' : get_asgi_application(),
+#         'websocket' : AuthMiddlewareStack(
+#             URLRouter(
+#                 chat_websocket_urlpatterns
+#             )
+#         )
+#     }
+# )
+from channels.routing import ProtocolTypeRouter, URLRouter
+from channels.auth import AuthMiddlewareStack 
+from chat_app.routing import websocket_urlpatterns
+
+application = ProtocolTypeRouter({
+    "http": get_asgi_application(),
+    "websocket": AuthMiddlewareStack(
+        URLRouter(websocket_urlpatterns)
+    ),
+})
+

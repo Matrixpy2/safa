@@ -58,15 +58,16 @@ class ChatApi(APIView):
             async_to_sync(channel_layer.group_send)(
                 f'chat_{room.id}',
                 {
-                    "type": "chat.message",
+                    "type": "chat_message",
                     "message": {
                         "id": message.id,
                         "text": message.text,
                         "sender": message.sender.username,
-                        "date": str(message.date),
+                        "date": message.date.isoformat(),
                     }
                 }
             )
+
 
             return Response(
                 {
